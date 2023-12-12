@@ -15,13 +15,14 @@ function Gameboard() {
     const getBoard = () => board;
 
     //place a marker
-    const placeMarker = (player, column, row) => {
-        board[column][row] = player["marker"];
+    const placeMarker = (player, row, column) => {
+        board[row][column] = player["marker"];
     }
 
     return { board, getBoard, placeMarker };
 
 }
+
 
 
 // function Player() {
@@ -79,17 +80,22 @@ function GameController() {
     while (!winFlag) {
 
     // prompt x for location
+
+    let currentColumn = 0;
+    let currentRow = 0;
+
     
     let rowPromptMessage = ("Row to place " + activePlayer.marker + "?");
     let columnPromptMessage = ("Column to place " + activePlayer.marker + "?");
 
-    let currentRow = prompt(rowPromptMessage);
-    let currentColumn = prompt(columnPromptMessage); // need some validation here
+    currentRow = prompt(rowPromptMessage);
+    currentColumn = prompt(columnPromptMessage); // need some validation here
 
     // place x in location
-    board.placeMarker(activePlayer, currentColumn, currentRow);
+    console.log("Placing marker " + activePlayer.marker + " in row " + currentRow + ", column " + currentColumn);
+    board.placeMarker(activePlayer, currentRow, currentColumn);
 
-    console.log(board.getBoard());
+    printBoard();
 
     // evaluate
     // if no win, prompt o for location
@@ -112,6 +118,20 @@ function GameController() {
     // board.placeMarker(player[1], 2, 2);
 
     // console.log("After place: " + board.getBoard());
+
+
+    function printBoard(){
+        const thisBoard = board.getBoard();
+        let row1 = thisBoard[0];
+        let row2 = thisBoard[1];
+        let row3 = thisBoard[2];
+
+        console.log(row1 +"\n" + row2 + "\n" + row3);
+
+        return;
+    }
+    
+
 }
 
 const game = GameController();
