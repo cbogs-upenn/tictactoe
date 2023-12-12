@@ -81,19 +81,7 @@ function GameController() {
 
     // prompt x for location
 
-    let currentColumn = 0;
-    let currentRow = 0;
-
-    
-    let rowPromptMessage = ("Row to place " + activePlayer.marker + "?");
-    let columnPromptMessage = ("Column to place " + activePlayer.marker + "?");
-
-    currentRow = prompt(rowPromptMessage);
-    currentColumn = prompt(columnPromptMessage); // need some validation here
-
-    // place x in location
-    console.log("Placing marker " + activePlayer.marker + " in row " + currentRow + ", column " + currentColumn);
-    board.placeMarker(activePlayer, currentRow, currentColumn);
+    promptPlayer();
 
     printBoard();
 
@@ -129,6 +117,50 @@ function GameController() {
         console.log(row1 +"\n" + row2 + "\n" + row3);
 
         return;
+    }
+
+    function promptPlayer(){
+
+        let currentColumn = 0;
+        let currentRow = 0;
+       
+        let goodRow = false;
+        let goodColumn = false;
+
+        while (!goodRow) {
+        let rowPromptMessage = ("Row to place " + activePlayer.marker + "?");
+        currentRow = prompt(rowPromptMessage);    
+
+        if ((currentRow >= 0) && (currentRow <= 2) && (currentRow != null) && (currentRow != undefined)) {
+            console.log("Row is now " + currentRow);
+            goodRow = true;
+        } else {
+            console.log("Pick a better number");
+            goodRow = false;
+            }
+        }
+
+        while (!goodColumn) {
+            let columnPromptMessage = ("Column to place " + activePlayer.marker + "?");
+            currentColumn = prompt(columnPromptMessage);    
+    
+            if ((currentColumn >= 0) && (currentColumn <= 2) && (currentColumn != null) && (currentColumn != undefined)) {
+                console.log("Row is now " + currentColumn);
+                goodColumn = true;
+            } else {
+                console.log("Pick a better number");
+                goodColumn = false;
+                }
+        }
+    
+        // place x in location
+        console.log("Placing marker " + activePlayer.marker + " in row " + currentRow + ", column " + currentColumn);
+        board.placeMarker(activePlayer, currentRow, currentColumn);
+
+    }
+
+    function checkInput(value){
+
     }
     
 
