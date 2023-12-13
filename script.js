@@ -75,6 +75,8 @@ function GameController() {
 
     const getActivePlayer = () => activePlayer;
 
+    console.log("Start of game: " + board);
+
     // main loop
 
     while (!winFlag) {
@@ -126,32 +128,42 @@ function GameController() {
        
         let goodRow = false;
         let goodColumn = false;
+        let spaceIsEmpty = false;
 
-        while (!goodRow) {
-        let rowPromptMessage = ("Row to place " + activePlayer.marker + "?");
-        currentRow = prompt(rowPromptMessage);    
+        while (!spaceIsEmpty){
 
-        if ((currentRow >= 0) && (currentRow <= 2) && (currentRow != null) && (currentRow != undefined)) {
-            console.log("Row is now " + currentRow);
-            goodRow = true;
-        } else {
-            console.log("Pick a better number");
-            goodRow = false;
-            }
-        }
+            while (!goodRow) {
+            let rowPromptMessage = ("Row to place " + activePlayer.marker + "?");
+            currentRow = prompt(rowPromptMessage);    
 
-        while (!goodColumn) {
-            let columnPromptMessage = ("Column to place " + activePlayer.marker + "?");
-            currentColumn = prompt(columnPromptMessage);    
-    
-            if ((currentColumn >= 0) && (currentColumn <= 2) && (currentColumn != null) && (currentColumn != undefined)) {
-                console.log("Row is now " + currentColumn);
-                goodColumn = true;
+            if ((currentRow >= 0) && (currentRow <= 2) && (currentRow != null) && (currentRow != undefined)) {
+                console.log("Row is now " + currentRow);
+                goodRow = true;
             } else {
                 console.log("Pick a better number");
-                goodColumn = false;
+                goodRow = false;
                 }
-        }
+            }
+
+            while (!goodColumn) {
+                let columnPromptMessage = ("Column to place " + activePlayer.marker + "?");
+                currentColumn = prompt(columnPromptMessage);    
+        
+                if ((currentColumn >= 0) && (currentColumn <= 2) && (currentColumn != null) && (currentColumn != undefined)) {
+                    console.log("Row is now " + currentColumn);
+                    goodColumn = true;
+                } else {
+                    console.log("Pick a better number");
+                    goodColumn = false;
+                    }
+            }
+
+            // check to make sure the column/row are empty
+            if (board[currentRow][currentColumn] != 0){
+                console.log("That location has already been claimed!");
+                spaceIsEmpty = false;
+            } else {spaceIsEmpty = true;}
+    }
     
         // place x in location
         console.log("Placing marker " + activePlayer.marker + " in row " + currentRow + ", column " + currentColumn);
