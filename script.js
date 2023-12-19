@@ -163,6 +163,7 @@ function GameController() {
       if (thisBoard[currentRow][currentColumn] != 0) {
         console.log("That location has already been claimed!");
         spaceIsEmpty = false;
+        promptPlayer();
       } else {
         spaceIsEmpty = true;
       }
