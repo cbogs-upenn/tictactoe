@@ -130,7 +130,9 @@ function GameController() {
         let goodColumn = false;
         let spaceIsEmpty = false;
 
-        while (!spaceIsEmpty){
+        const checkBoard = board.getBoard();
+
+        do {
 
             while (!goodRow) {
             let rowPromptMessage = ("Row to place " + activePlayer.marker + "?");
@@ -159,11 +161,13 @@ function GameController() {
             }
 
             // check to make sure the column/row are empty
-            if (board[currentRow][currentColumn] != 0){
+            if (checkBoard[currentRow][currentColumn] != 0){
                 console.log("That location has already been claimed!");
                 spaceIsEmpty = false;
-            } else {spaceIsEmpty = true;}
-    }
+            } else {
+                spaceIsEmpty = true;
+            }
+    } while (!spaceIsEmpty);
     
         // place x in location
         console.log("Placing marker " + activePlayer.marker + " in row " + currentRow + ", column " + currentColumn);
